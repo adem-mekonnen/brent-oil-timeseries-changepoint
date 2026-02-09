@@ -1,0 +1,8 @@
+Flask==3.0.0
+Flask-Cors==4.0.0
+pandas==2.0.3
+numpy==1.24.3
+python-dotenv==1.0.0
+gunicorn==21.2.0  # For production deployment
+# Note: If running PyMC in the backend, add pymc here too, 
+# but usually we load pre-calculated results to save memory.

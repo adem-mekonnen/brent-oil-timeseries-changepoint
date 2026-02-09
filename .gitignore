@@ -1,0 +1,50 @@
+# --- Python & Environments ---
+.venv/
+venv/
+env/
+bin/
+lib/
+develop-eggs/
+dist/
+build/
+pycache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+brent_analysis.egg-info/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+# Keep the .ipynb files, but ignore the checkpoint folders
+
+# --- Data & Large Files ---
+# If your dataset is very large, uncomment the next line:
+# data/BrentOilPrices.csv
+# Keep events_data.csv as it is small and curated
+
+# --- Dashboard (Backend) ---
+dashboard/backend/.env
+dashboard/backend/__pycache__/
+*.log
+
+# --- Dashboard (Frontend) ---
+dashboard/frontend/node_modules/
+dashboard/frontend/build/
+dashboard/frontend/.pnp
+dashboard/frontend/.pnp.js
+dashboard/frontend/coverage/
+dashboard/frontend/.eslintcache
+
+# --- OS & IDE Files ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Plots & Temporary Reports ---
+notebooks/*.png
+notebooks/*.pdf
