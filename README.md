@@ -1,104 +1,99 @@
-# Brent Oil Price Analysis: Geopolitical & Economic Impact
+# Birhan Energies: Brent Oil Change Point Analysis
+### **Strategic Intelligence on Geopolitical & Economic Shocks (1987-2022)**
 
-## Overview
-As a Data Scientist at **Birhan Energies**, I am tasked with analyzing how major political and economic events affect Brent oil prices. The oil market is notoriously volatile, making it difficult for investors, policymakers, and energy companies to manage risks. 
+## 1. Project Overview
+As a Data Scientist at **Birhan Energies**, I conducted a comprehensive analysis to understand how major political decisions, conflicts, and economic sanctions influence Brent oil prices. The oil market is characterized by high instability; this project provides a data-driven framework to quantify that instability.
 
-This project uses **Bayesian Change Point Analysis** (via PyMC) to identify structural breaks in oil prices and correlates them with historical events such as OPEC policy changes, regional conflicts, and global economic shocks.
+Using **Bayesian Change Point Analysis** (via PyMC), we identified "Structural Breaks" in the market—moments where the fundamental price floor shifted permanently rather than temporarily.
 
-## Folder Structure
-The project is organized to support modularity (via the `src` folder), deep analysis (via `notebooks`), and insight delivery (via the `dashboard`).
+## 2. Folder Structure
+The project is organized into a modular full-stack application to ensure reproducibility and clean separation of concerns.
 
 ```text
 brent-oil-analysis/
-├── .venv/                      # Python virtual environment
-├── data/                       # Raw and processed datasets
-│   ├── BrentOilPrices.csv      # Historical price data (1987-2022)
-│   └── events_data.csv         # Researched geopolitical/economic events
-├── notebooks/                  # Analysis and Modeling
-│   ├── 01_eda_and_preprocessing.ipynb
-│   └── 02_bayesian_change_point.ipynb
-├── src/                        # Modular Python source code
-│   ├── __init__.py
-│   ├── data_loader.py          # Data cleaning and loading logic
-│   ├── plotting.py             # Reusable visualization functions
-│   └── stats_utils.py          # Statistical helper functions
-├── dashboard/                  # Interactive Visualization
+├── data/                       # Data storage
+│   ├── BrentOilPrices.csv      # Raw daily price data
+│   └── events_data.csv         # Curated geopolitical events (13 events)
+├── notebooks/                  # Statistical Analysis
+│   ├── 01_eda_and_preprocessing.ipynb  # Stationarity & Trend analysis
+│   └── 02_bayesian_change_point.ipynb  # PyMC Bayesian Modeling
+├── src/                        # Modular Python Package (Core Logic)
+│   ├── data_loader.py          # Centralized CSV processing
+│   ├── plotting.py             # Matplotlib/Seaborn wrappers
+│   └── stats_utils.py          # Statistical tests (ADF, etc.)
+├── dashboard/                  # Deployment
 │   ├── backend/                # Flask API
-│   └── frontend/               # React Application
-├── tests/                      # Unit tests
-├── .gitignore                  # Files to ignore in Git
-├── README.md                   # Project documentation
-├── requirements.txt            # Python dependencies
-└── setup.py                    # Package configuration
+│   │   ├── api/routes.py       # JSON Endpoints
+│   │   ├── data/               # Model output (analysis_results.json)
+│   │   └── app.py              # Server entry point
+│   └── frontend/               # React Dashboard (Vite + TypeScript)
+│       ├── src/App.tsx         # Dashboard UI with Recharts
+│       └── src/App.css         # Professional Styling
+├── requirements.txt            # Project dependencies
+├── setup.py                    # Package configuration for 'src'
+└── README.md                   # Project documentation
 ```
 
 ---
 
-## Installation & Setup
+## 3. Installation & Setup
 
-### 1. Clone the Repository
+### Environment Setup
 ```bash
-git clone <your-repository-url>
-cd brent-oil-analysis
-```
-
-### 2. Set Up Virtual Environment
-```bash
+# Create and activate virtual environment
 python -m venv .venv
 source .venv/Scripts/activate  # On Windows Git Bash
-```
 
-### 3. Install Dependencies
-Due to potential network SSL restrictions, use the following command:
-```bash
+# Install dependencies (with SSL certificate bypass)
 pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
+
+# Install the internal 'src' package in editable mode
 pip install -e .
 ```
+## 4. Implementation Details
 
-## Tasks & Deliverables
+### **Task 1: The Foundation**
+*   **EDA:** Conducted Augmented Dickey-Fuller (ADF) tests proving price non-stationarity ($p > 0.05$).
+*   **Event Research:** Compiled a dataset of 13 major events including the Gulf War, 2014 OPEC market share war, and the 2022 Ukraine invasion.
+*   **Volatility:** Identified volatility clustering through log-return analysis.
 
-### Task 1: Foundation for Analysis (Interim Report)
-**Objective:** Define the workflow and understand data properties.
-*   **Deliverables:**
-    *   **Workflow:** Outline steps from data ingestion to insight generation.
-    *   **Event Dataset:** A structured CSV containing 10-15 key geopolitical events.
-    *   **EDA:** Analysis of trends, volatility (log returns), and stationarity (ADF test).
-    *   **Assumptions:** Documentation of statistical assumptions and the difference between correlation and causation.
+### **Task 2: Bayesian Modeling (PyMC)**
+*   **Model:** Implemented a Switch-Point model using MCMC sampling.
+*   **Quantification:** Identified a structural break on **March 9, 2020**, where the mean price floor collapsed by **61.6%** (from ~$54 to ~$21) due to the COVID-19 pandemic and OPEC+ negotiations.
 
-### Task 2: Change Point Modeling (Final Report)
-**Objective:** Use Bayesian inference to identify and quantify price shifts.
-*   **Methodology:** Implement a Switch Point model in **PyMC**.
-*   **Quantification:** 
-    *   Identify specific dates ($\tau$) of structural breaks.
-    *   Calculate mean prices before and after ($\mu_1, \mu_2$).
-    *   Quantify the percentage impact of events (e.g., COVID-19, Ukraine War).
-
-### Task 3: Interactive Dashboard
-**Objective:** Visualize results for stakeholders.
-*   **Backend:** Flask API serving price data and model results.
-*   **Frontend:** React dashboard using **Recharts** to display:
-    *   Historical trends.
-    *   Event-specific "highlights" on the price chart.
-    *   Key indicators (volatility, average price shifts).
-
-## Final Report Structure
-The final submission includes a comprehensive report (Blog post or PDF) covering:
-1.  **Executive Summary:** High-level findings for Birhan Energies' clients.
-2.  **Methodology:** Explanation of Bayesian Change Point detection.
-3.  **Insights:** Quantified impact of 5+ major events.
-4.  **Dashboard screenshots:** Evidence of the functional visualization tool.
-5.  **Conclusion:** Strategic advice for investors and policymakers based on the data.
-
-
-## Data Fields
-*   **Date:** The date of the recorded Brent oil price (May 20, 1987, to September 30, 2022).
-*   **Price:** Price in USD per barrel.
-
-
-## Team & Support
-*   **Tutors:** Kerod, Filimon, Mahbubah
-*   **Communication:** Slack `#all-week11`
-*   **Consultancy:** Birhan Energies
+### **Task 3: Interactive Dashboard**
+*   **Backend:** Flask server providing endpoints for historical prices, geopolitical events, and Bayesian model results.
+*   **Frontend:** A modern React/Vite dashboard using **Recharts** to visualize event overlays and model-detected shifts.
 
 ---
-*Developed as part of the 10 Academy Phase 11 Challenge.*
+
+## 5. How to Run the Project
+
+### 1. Generate Analysis
+Run all cells in `notebooks/02_bayesian_change_point.ipynb` to generate the `analysis_results.json` file.
+
+### 2. Start Backend (Flask)
+```bash
+cd dashboard/backend
+python app.py
+```
+*The API will be available at `http://localhost:5000`*
+
+### 3. Start Frontend (React/Vite)
+```bash
+cd dashboard/frontend
+npm install
+npm run dev
+```
+*The Dashboard will be available at `http://localhost:5173`*
+
+## 6. Key Business Insights
+*   **Regime Shifts:** Unlike temporary spikes, events like COVID-19 cause "regime shifts" that invalidate previous 200-day moving averages.
+*   **Actionable Advice:** Birhan Energies recommends that stakeholders use Bayesian change point detection to trigger "immediate hedging" when a structural break is confirmed by the model, as price floors take months or years to recover.
+## 7. Submission Details
+*   **Interim Report:** Submitted Feb 8, 2026.
+*   **Final Submission:** Feb 10, 2026.
+*   **Tutors:** Kerod, Filimon, Mahbubah.
+
+---
+*Developed for the Birhan Energies Consultancy Intern Program.*
